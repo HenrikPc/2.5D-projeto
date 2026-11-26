@@ -7,11 +7,13 @@
 [ext_resource type="Texture2D" uid="uid://bcl3braa7bpox" path="res://Animações sprites player/16x16 Walk-Sheet.png" id="3_q8ihy"]
 [ext_resource type="PackedScene" path="res://models/tree.tscn" id="6_wan0n"]
 [ext_resource type="Script" uid="uid://qsj6tublblyg" path="res://ground_follow_camera.gd" id="7_camera"]
+[ext_resource type="PackedScene" path="res://interactables/trail_sign.tscn" id="8_sign"]
+[ext_resource type="PackedScene" path="res://ui/interaction_message.tscn" id="9_message"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_h0dj0"]
 size = Vector3(24, 0.5, 24)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_auc41"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_w30at"]
 size = Vector3(24, 0.5, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_auc41"]
@@ -206,7 +208,7 @@ mesh = SubResource("BoxMesh_h0dj0")
 [node name="StaticBody3D" type="StaticBody3D" parent="chao" unique_id=1343520434]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="chao/StaticBody3D" unique_id=427842880]
-shape = SubResource("BoxShape3D_auc41")
+shape = SubResource("BoxShape3D_w30at")
 script = ExtResource("3_collider")
 
 [node name="GridMap" type="GridMap" parent="." unique_id=1240116641]
@@ -219,9 +221,10 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="Player" type="CharacterBody3D" parent="." unique_id=730072066]
+[node name="Player" type="CharacterBody3D" parent="." unique_id=730072066 node_paths=PackedStringArray("dialogue_box")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
 script = ExtResource("1_player")
+dialogue_box = NodePath("../InteractionMessage")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="Player" unique_id=1291529639]
 transform = Transform3D(1, 0, 0, 0, 1.33, 0, 0, 0, 1, 0, 0.4685402, 0)
@@ -440,3 +443,10 @@ transform = Transform3D(-5.2453665e-08, 0, -1.1999997, 0, 1.1999997, 0, 1.199999
 
 [node name="tree61" parent="tree2" unique_id=259099974 instance=ExtResource("6_wan0n")]
 transform = Transform3D(-5.2453665e-08, 0, -1.1999997, 0, 1.1999997, 0, 1.1999997, 0, -5.2453665e-08, 1.7000036, 0, 18.999998)
+
+[node name="TrailSign" parent="." unique_id=845344604 instance=ExtResource("8_sign")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
+message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
+additional_pages = PackedStringArray("hold up")
+
+[node name="InteractionMessage" parent="." unique_id=1753552619 instance=ExtResource("9_message")]
