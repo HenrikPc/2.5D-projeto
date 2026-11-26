@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://nkx1geuncl6y"]
+
+[ext_resource type="Texture2D" uid="uid://cfju241pvah0r" path="res://Tileset/Texture/TX Tileset Grass.png" id="1_rnkvm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wsy0k"]
+albedo_texture = ExtResource("1_rnkvm")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_h0dj0"]
+material = SubResource("StandardMaterial3D_wsy0k")
+size = Vector2(1, 1)
+
+[node name="terrain" type="Node3D" unique_id=827621859]
+
+[node name="grass" type="MeshInstance3D" parent="." unique_id=700200662]
+mesh = SubResource("PlaneMesh_h0dj0")

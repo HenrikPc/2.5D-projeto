@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" uid="uid://jom3bp8wjqkg" path="res://models/xmas_tree.glb" id="1_model"]
+
+[sub_resource type="BoxShape3D" id="Shape_trunk"]
+size = Vector3(0.45983887, 1, 0.5184326)
+
+[node name="Tree" instance=ExtResource("1_model")]
+scale = Vector3(2.5, 2.5, 2.5)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+position = Vector3(-0.007873535, 0.6446864, 0.06829834)
+shape = SubResource("Shape_trunk")
+debug_color = Color(0, 11.708403, 13.469126, 1)
