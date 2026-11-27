@@ -7,14 +7,19 @@
 [ext_resource type="Texture2D" uid="uid://bcl3braa7bpox" path="res://Animações sprites player/16x16 Walk-Sheet.png" id="3_q8ihy"]
 [ext_resource type="PackedScene" path="res://models/tree.tscn" id="6_wan0n"]
 [ext_resource type="Script" uid="uid://qsj6tublblyg" path="res://ground_follow_camera.gd" id="7_camera"]
+[ext_resource type="Script" uid="uid://du8qsncr50t4g" path="res://interactables/trail_sign.gd" id="8_rugew"]
 [ext_resource type="PackedScene" path="res://interactables/trail_sign.tscn" id="8_sign"]
 [ext_resource type="PackedScene" path="res://ui/interaction_message.tscn" id="9_message"]
+[ext_resource type="Texture2D" uid="uid://dk3dyereod0pv" path="res://Sprites/veiosprite.png" id="10_2eut3"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_h0dj0"]
 size = Vector3(24, 0.5, 24)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_w30at"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_o68h1"]
 size = Vector3(24, 0.5, 24)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h0dj0"]
+size = Vector3(0.14962769, 0.14379883, 0.054260254)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_auc41"]
 atlas = ExtResource("3_lrjei")
@@ -208,7 +213,7 @@ mesh = SubResource("BoxMesh_h0dj0")
 [node name="StaticBody3D" type="StaticBody3D" parent="chao" unique_id=1343520434]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="chao/StaticBody3D" unique_id=427842880]
-shape = SubResource("BoxShape3D_w30at")
+shape = SubResource("BoxShape3D_o68h1")
 script = ExtResource("3_collider")
 
 [node name="GridMap" type="GridMap" parent="." unique_id=1240116641]
@@ -221,29 +226,6 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="Player" type="CharacterBody3D" parent="." unique_id=730072066 node_paths=PackedStringArray("dialogue_box")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
-script = ExtResource("1_player")
-dialogue_box = NodePath("../InteractionMessage")
-
-[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="Player" unique_id=1291529639]
-transform = Transform3D(1, 0, 0, 0, 1.33, 0, 0, 0, 1, 0, 0.4685402, 0)
-pixel_size = 0.05
-billboard = 2
-texture_filter = 0
-sprite_frames = SubResource("SpriteFrames_wsy0k")
-animation = &"idle"
-autoplay = "idle"
-frame_progress = 0.9988292
-
-[node name="CameraFocus" type="Marker3D" parent="Player/AnimatedSprite3D" unique_id=1363882634]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=1393018592]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0052490234, 0.17956543, -0.009155273)
-shape = SubResource("BoxShape3D_apjix")
-debug_color = Color(18.892157, 0, 0, 1)
-
 [node name="Camera3D" type="Camera3D" parent="." unique_id=106879380 node_paths=PackedStringArray("target", "ground")]
 process_physics_priority = 1
 transform = Transform3D(1, 0, 0, 0, 0.7660444, 0.6427875, 0, -0.6427875, 0.7660444, 0, 10, 10)
@@ -254,12 +236,6 @@ script = ExtResource("7_camera")
 target = NodePath("../Player/AnimatedSprite3D/CameraFocus")
 ground = NodePath("../chao")
 edge_behavior = 1
-
-[node name="Camera3D2" type="Camera3D" parent="." unique_id=2075931261]
-transform = Transform3D(1, 0, 0, 0, 0.62387955, 0.7815205, 0, -0.7815205, 0.62387955, -1.1444092e-05, 9.999985, 9.999977)
-visible = false
-fov = 30.0
-size = 8.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2088610037]
 transform = Transform3D(0.8660254, 0.43301272, -0.25, 0, 0.49999997, 0.86602545, 0.5, -0.75, 0.4330127, 0, 10, 0)
@@ -450,3 +426,43 @@ message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusm
 additional_pages = PackedStringArray("hold up")
 
 [node name="InteractionMessage" parent="." unique_id=1753552619 instance=ExtResource("9_message")]
+
+[node name="npc" type="Sprite3D" parent="." unique_id=940992006]
+transform = Transform3D(5, 0, 0, 0, 7, 0, 0, 0, 5, 5, 0.5175788, -5.9173584)
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("10_2eut3")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="npc" unique_id=1060646457]
+script = ExtResource("8_rugew")
+message = "Hello Friend!"
+additional_pages = PackedStringArray("Enter the house, friend.")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="npc/StaticBody3D" unique_id=776073498]
+transform = Transform3D(1, 0, 0, 0, 0.9999993, 0, 0, 0, 1, -0.0058135986, -0.038940437, 0.0026550293)
+shape = SubResource("BoxShape3D_h0dj0")
+debug_color = Color(1.1548246, 0.30117986, 0.6481157, 1)
+
+[node name="Player" type="CharacterBody3D" parent="." unique_id=730072066 node_paths=PackedStringArray("dialogue_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+script = ExtResource("1_player")
+dialogue_box = NodePath("../InteractionMessage")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="Player" unique_id=1291529639]
+transform = Transform3D(1, 0, 0, 0, 1.33, 0, 0, 0, 1, 0, 0.4685402, 0)
+pixel_size = 0.05
+billboard = 2
+alpha_cut = 1
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_wsy0k")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.9988292
+
+[node name="CameraFocus" type="Marker3D" parent="Player/AnimatedSprite3D" unique_id=1363882634]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=1393018592]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0052490234, 0.17956543, -0.009155273)
+shape = SubResource("BoxShape3D_apjix")
+debug_color = Color(18.892157, 0, 0, 1)
